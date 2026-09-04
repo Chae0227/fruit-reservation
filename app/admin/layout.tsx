@@ -1,12 +1,14 @@
 import Link from 'next/link'
 import { getSession } from '@/lib/session'
 import { redirect } from 'next/navigation'
+import { LayoutDashboard, Package, ClipboardList, Store } from 'lucide-react'
+import NavLink from './NavLink'
 import AdminLogoutButton from './AdminLogoutButton'
 
 const navItems = [
-  { href: '/admin', label: '대시보드', icon: '📊' },
-  { href: '/admin/products', label: '상품 관리', icon: '🍎' },
-  { href: '/admin/reservations', label: '예약 관리', icon: '📋' },
+  { href: '/admin', label: '대시보드', icon: LayoutDashboard },
+  { href: '/admin/products', label: '상품 관리', icon: Package },
+  { href: '/admin/reservations', label: '예약 관리', icon: ClipboardList },
 ]
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -15,35 +17,30 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="min-h-screen flex bg-gray-50">
-      {/* Sidebar */}
       <aside className="w-56 shrink-0 bg-white border-r border-gray-100 flex flex-col">
-        <div className="p-5 border-b border-gray-100">
-          <p className="font-bold text-gray-800 text-sm">🍊 과일가게</p>
-          <p className="text-xs text-gray-400 mt-0.5">관리자 워크스페이스</p>
+        <div className="px-4 py-5 border-b border-gray-100 flex items-center gap-2.5">
+          <div className="w-7 h-7 rounded-lg bg-green-600 flex items-center justify-center">
+            <Store size={14} className="text-white" />
+          </div>
+          <div>
+            <p className="font-bold text-gray-800 text-sm leading-none">과일가게</p>
+            <p className="text-xs text-gray-400 mt-0.5">관리자</p>
+          </div>
         </div>
-        <nav className="flex-1 py-4">
-          <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">운영</p>
+
+        <nav className="flex-1 py-3 space-y-0.5">
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
-            >
-              <span>{item.icon}</span>
-              {item.label}
-            </Link>
+            <NavLink key={item.href} href={item.href} label={item.label} Icon={item.icon} />
           ))}
         </nav>
+
         <div className="p-4 border-t border-gray-100">
-          <p className="text-xs text-gray-500 mb-2">{session.name}님</p>
+          <p className="text-xs font-medium text-gray-700 mb-0.5">{session.name}</p>
           <AdminLogoutButton />
         </div>
       </aside>
 
-      {/* Main */}
-      <main className="flex-1 overflow-auto">
-        {children}
-      </main>
+      <main className="flex-1 overflow-auto">{children}</main>
     </div>
   )
 }
