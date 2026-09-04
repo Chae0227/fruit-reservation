@@ -2,14 +2,8 @@ import Link from 'next/link'
 import { createServerClient } from '@/lib/supabase/server'
 import { ArrowRight } from 'lucide-react'
 import { MotionReveal, MotionStagger, MotionItem } from '@/components/motion/MotionReveal'
+import HeroSection from './HeroSection'
 import type { Product } from '@/lib/types'
-
-const FRUIT_PHOTOS = [
-  'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80',
-  'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80',
-  'https://images.unsplash.com/photo-1571575173927-c0be9b2f3b8c?auto=format&fit=crop&w=600&q=80',
-  'https://images.unsplash.com/photo-1511688878353-3a2f5be94cd7?auto=format&fit=crop&w=600&q=80',
-]
 
 export default async function LandingPage() {
   const supabase = createServerClient()
@@ -22,91 +16,7 @@ export default async function LandingPage() {
 
   return (
     <div>
-      {/* ── Hero ── */}
-      <section style={{ background: '#F8F8F5' }}>
-        <div className="max-w-6xl mx-auto px-8 pt-14 pb-0 flex flex-col lg:flex-row items-stretch gap-10 min-h-[82vh]">
-
-          {/* Left */}
-          <div className="flex-1 flex flex-col justify-center py-10">
-            <MotionReveal>
-              <span className="inline-block text-[11px] font-bold tracking-[0.18em] uppercase mb-6 px-3 py-1.5 rounded-full"
-                style={{ background: '#FFF0E5', color: '#F5A623' }}>
-                오색청과 송천점
-              </span>
-            </MotionReveal>
-            <MotionReveal delay={0.05}>
-              <h1 className="font-bold leading-[1.05] mb-6"
-                style={{ color: '#17182D', fontSize: 'clamp(2.8rem, 5vw, 4.5rem)', letterSpacing: '-0.03em' }}>
-                매일 아침<br />직접 고른<br /><span style={{ color: '#F5A623' }}>신선한 과일</span>
-              </h1>
-            </MotionReveal>
-            <MotionReveal delay={0.1}>
-              <p className="text-[16px] leading-relaxed mb-10" style={{ color: 'rgba(23,24,45,0.5)', maxWidth: 360 }}>
-                제철 과일을 미리 예약하고 대기 없이 픽업하세요.<br />
-                실명 예약으로 노쇼 없이 더 신뢰있게.
-              </p>
-            </MotionReveal>
-            <MotionReveal delay={0.15}>
-              <div className="flex gap-3 flex-wrap">
-                <Link
-                  href="/products"
-                  className="inline-flex items-center gap-2.5 font-bold text-[15px] text-white px-7 py-3.5 transition-opacity hover:opacity-85"
-                  style={{ background: '#F5A623', borderRadius: 14 }}
-                >
-                  지금 예약하기 <ArrowRight size={16} />
-                </Link>
-                <Link
-                  href="/register"
-                  className="inline-flex items-center gap-2 font-semibold text-[15px] px-7 py-3.5 transition-colors"
-                  style={{ background: '#FFFFFF', color: '#17182D', borderRadius: 14, border: '1.5px solid rgba(23,24,45,0.12)' }}
-                >
-                  회원가입
-                </Link>
-              </div>
-            </MotionReveal>
-
-            {/* Stats row */}
-            <MotionReveal delay={0.2}>
-              <div className="flex gap-8 mt-14">
-                {[
-                  { num: '매일', label: '직접 선별' },
-                  { num: '100%', label: '실명 예약' },
-                  { num: '0분', label: '픽업 대기' },
-                ].map((s) => (
-                  <div key={s.label}>
-                    <p className="text-[22px] font-bold" style={{ color: '#17182D', letterSpacing: '-0.02em' }}>{s.num}</p>
-                    <p className="text-[12px] font-medium mt-0.5" style={{ color: 'rgba(23,24,45,0.4)' }}>{s.label}</p>
-                  </div>
-                ))}
-              </div>
-            </MotionReveal>
-          </div>
-
-          {/* Right — photo collage */}
-          <MotionReveal delay={0.08} className="hidden lg:flex items-end w-[48%] shrink-0">
-            <div className="w-full h-[580px] flex gap-3 pb-0">
-              {/* Left col — tall */}
-              <div className="flex-1 flex flex-col gap-3">
-                <div className="flex-[1.6] rounded-[24px] overflow-hidden" style={{ background: '#FFF0E5' }}>
-                  <img src={FRUIT_PHOTOS[0]} alt="과일" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex-1 rounded-[24px] overflow-hidden" style={{ background: '#E5F3E9' }}>
-                  <img src={FRUIT_PHOTOS[1]} alt="과일" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              {/* Right col — offset */}
-              <div className="flex-1 flex flex-col gap-3 pt-10">
-                <div className="flex-1 rounded-[24px] overflow-hidden" style={{ background: '#DCEBFF' }}>
-                  <img src={FRUIT_PHOTOS[2]} alt="과일" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex-[1.4] rounded-[24px] overflow-hidden" style={{ background: '#FFF4B8' }}>
-                  <img src={FRUIT_PHOTOS[3]} alt="과일" className="w-full h-full object-cover" />
-                </div>
-              </div>
-            </div>
-          </MotionReveal>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* ── Products ── */}
       <section className="py-20" style={{ background: '#FFFFFF' }}>
@@ -122,7 +32,7 @@ export default async function LandingPage() {
               <Link
                 href="/products"
                 className="hidden md:inline-flex items-center gap-1.5 text-[14px] font-semibold px-5 py-2.5 transition-opacity hover:opacity-70"
-                style={{ color: '#F5A623', border: '1.5px solid rgba(249,115,22,0.25)', borderRadius: 12 }}
+                style={{ color: '#F5A623', border: '1.5px solid rgba(245,166,35,0.3)', borderRadius: 12 }}
               >
                 전체보기 <ArrowRight size={14} />
               </Link>
@@ -135,27 +45,27 @@ export default async function LandingPage() {
                 <MotionItem key={p.id}>
                   <Link
                     href="/products"
-                    className="group block rounded-[20px] overflow-hidden"
-                    style={{ background: '#F8F8F5', boxShadow: '0 1px 4px rgba(23,24,45,0.06)' }}
+                    className="group block rounded-[20px] overflow-hidden transition-all duration-300 hover:-translate-y-2"
+                    style={{ background: '#F8F8F5', boxShadow: '0 2px 8px rgba(23,24,45,0.06)' }}
                   >
                     <div className="h-44 overflow-hidden relative" style={{ background: '#FFF0E5' }}>
                       {p.image_url ? (
-                        <img src={p.image_url} alt={p.name} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <img src={p.image_url} alt={p.name} className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
                       ) : (
-                        <div className="h-full w-full flex items-center justify-center text-5xl">
+                        <div className="h-full w-full flex items-center justify-center" style={{ fontSize: 48 }}>
                           🍊
                         </div>
                       )}
                       <div className="absolute top-3 right-3">
-                        <span className="text-[11px] font-bold px-2 py-1 rounded-full" style={{ background: '#E5F3E9', color: '#15803d' }}>예약가능</span>
+                        <span className="text-[11px] font-bold px-2.5 py-1 rounded-full" style={{ background: 'rgba(229,243,233,0.95)', color: '#15803d' }}>예약가능</span>
                       </div>
                     </div>
                     <div className="p-4">
                       <p className="font-bold text-[14px] mb-0.5 truncate" style={{ color: '#17182D' }}>{p.name}</p>
                       {p.description && (
-                        <p className="text-[12px] line-clamp-1 mb-2" style={{ color: 'rgba(23,24,45,0.4)' }}>{p.description}</p>
+                        <p className="text-[12px] line-clamp-1 mb-2.5" style={{ color: 'rgba(23,24,45,0.4)' }}>{p.description}</p>
                       )}
-                      <p className="font-bold text-[16px]" style={{ color: '#F5A623' }}>{p.price.toLocaleString()}원</p>
+                      <p className="font-black text-[17px]" style={{ color: '#F5A623' }}>{p.price.toLocaleString()}원</p>
                     </div>
                   </Link>
                 </MotionItem>
@@ -185,7 +95,7 @@ export default async function LandingPage() {
               { step: '03', title: '픽업', desc: '예약 후 매장 방문\n현장 결제로 간편하게', bg: '#E5F3E9', color: '#15803d' },
             ].map((s) => (
               <MotionItem key={s.step}>
-                <div className="rounded-[24px] p-8" style={{ background: '#FFFFFF', boxShadow: '0 2px 12px rgba(23,24,45,0.05)' }}>
+                <div className="rounded-[24px] p-8 transition-all duration-300 hover:-translate-y-1" style={{ background: '#FFFFFF', boxShadow: '0 2px 12px rgba(23,24,45,0.05)' }}>
                   <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: s.bg }}>
                     <span className="text-[13px] font-black" style={{ color: s.color }}>{s.step}</span>
                   </div>
