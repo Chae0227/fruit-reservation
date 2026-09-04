@@ -8,6 +8,13 @@ export type User = {
   created_at: string
 }
 
+export type Category = {
+  id: string
+  name: string
+  sort_order: number
+  created_at: string
+}
+
 export type Product = {
   id: string
   name: string
@@ -15,6 +22,8 @@ export type Product = {
   price: number
   image_url: string | null
   is_available: boolean
+  category_id: string | null
+  categories?: Pick<Category, 'id' | 'name'> | null
   created_at: string
 }
 

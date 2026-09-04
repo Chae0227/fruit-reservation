@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import { getSession } from '@/lib/session'
 import { redirect } from 'next/navigation'
-import { LayoutDashboard, Package, ClipboardList, Store } from 'lucide-react'
+import { LayoutDashboard, Package, ClipboardList, Store, Tag } from 'lucide-react'
 import NavLink from './NavLink'
 import AdminLogoutButton from './AdminLogoutButton'
 
 const navItems = [
   { href: '/admin', label: '대시보드', icon: LayoutDashboard },
+  { href: '/admin/categories', label: '카테고리', icon: Tag },
   { href: '/admin/products', label: '상품 관리', icon: Package },
   { href: '/admin/reservations', label: '예약 관리', icon: ClipboardList },
 ]

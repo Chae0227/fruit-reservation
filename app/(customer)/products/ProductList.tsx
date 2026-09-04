@@ -4,16 +4,17 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Minus, ShoppingBag, X } from 'lucide-react'
-import type { Product } from '@/lib/types'
+import type { Product, Category } from '@/lib/types'
 
 type CartItem = { product: Product; quantity: number }
 
 const EASE = [0.32, 0.72, 0, 1] as const
 
-export default function ProductList({ products, isLoggedIn }: { products: Product[]; isLoggedIn: boolean }) {
+export default function ProductList({ products, categories, isLoggedIn }: { products: Product[]; categories: Category[]; isLoggedIn: boolean }) {
   const [cart, setCart] = useState<CartItem[]>([])
   const [note, setNote] = useState('')
   const [loading, setLoading] = useState(false)
+  const [activeCategory, setActiveCategory] = useState<string>('all')
   const router = useRouter()
 
   function addToCart(product: Product) {
@@ -37,6 +38,12 @@ export default function ProductList({ products, isLoggedIn }: { products: Produc
 
   const totalPrice = cart.reduce((sum, c) => sum + c.product.price * c.quantity, 0)
   const totalCount = cart.reduce((sum, c) => sum + c.quantity, 0)
+
+  const filteredProducts = activeCategory === 'all'
+    ? products
+    : products.filter((p) => p.category_id === activeCategory)
+
+  const hasTabs = categories.length > 0
 
   async function handleReserve() {
     if (!isLoggedIn) { router.push('/login'); return }
@@ -65,14 +72,38 @@ export default function ProductList({ products, isLoggedIn }: { products: Produc
 
   return (
     <div className="flex flex-col lg:flex-row gap-8 items-start">
-      {/* Grid */}
-      <motion.div
-        className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-5"
+      {/* Grid + tabs */}
+      <div className="flex-1 min-w-0">
+        {/* Category tabs */}
+        {hasTabs && (
+          <div className="flex gap-2 flex-wrap mb-6">
+            {[{ id: 'all', name: '전체' }, ...categories].map((cat) => {
+              const active = activeCategory === cat.id
+              const count = cat.id === 'all' ? products.length : products.filter(p => p.category_id === cat.id).length
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className="px-4 py-2 text-[13px] font-semibold rounded-full transition-all"
+                  style={active
+                    ? { background: '#F97316', color: '#fff' }
+                    : { background: '#FFFFFF', color: 'rgba(23,24,45,0.5)', border: '1px solid rgba(23,24,45,0.12)' }
+                  }
+                >
+                  {cat.name} <span className="ml-1 font-normal opacity-70">{count}</span>
+                </button>
+              )
+            })}
+          </div>
+        )}
+
+        <motion.div
+        className="grid grid-cols-2 md:grid-cols-3 gap-5"
         initial="hidden"
         animate="visible"
         variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07 } } }}
       >
-        {products.map((p) => {
+        {filteredProducts.map((p) => {
           const inCart = cart.find((c) => c.product.id === p.id)
           return (
             <motion.div
@@ -138,6 +169,7 @@ export default function ProductList({ products, isLoggedIn }: { products: Produc
           )
         })}
       </motion.div>
+      </div>
 
       {/* Cart panel */}
       <div className="lg:w-80 w-full shrink-0">
