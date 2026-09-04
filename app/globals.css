@@ -8,29 +8,37 @@
 }
 
 @theme inline {
-  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* GrammarPT 색 토큰 */
+  --color-ink:      #17182D;
+  --color-canvas:   #F8F8F5;
+  --color-panel:    #FFFFFF;
+  --color-blue:     #DCEBFF;
+  --color-peach:    #FFF0E5;
+  --color-mint:     #E5F3E9;
+  --color-lilac:    #EEE8FF;
+  --color-yellow:   #FFF4B8;
 
-  --color-cream-50: #faf8f4;
-  --color-cream-100: #f4ede0;
-  --color-cream-200: #e8d9c0;
+  /* 과일가게 브랜드 오렌지 */
+  --color-brand:    #F97316;
+  --color-brand-dark: #EA580C;
 
-  --color-brand-50: #fff8ed;
-  --color-brand-100: #ffecd0;
-  --color-brand-400: #fba040;
-  --color-brand-500: #f97316;
-  --color-brand-600: #ea6c0a;
+  /* radius */
+  --radius-control: 12px;
+  --radius-card:    20px;
+  --radius-panel:   28px;
+
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
+  font-size: 16px;
 }
 
 body {
-  background: #ffffff;
-  color: #1a1a1a;
+  background: #F8F8F5;
+  color: #17182D;
 }

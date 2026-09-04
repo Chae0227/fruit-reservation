@@ -7,76 +7,74 @@ export default async function CustomerLayout({ children }: { children: React.Rea
   const session = await getSession()
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-100">
-        <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
-          <Link href="/" className="text-lg font-bold tracking-tight text-neutral-900">
+    <div className="min-h-screen flex flex-col" style={{ background: '#F8F8F5' }}>
+      {/* Nav */}
+      <header
+        className="sticky top-0 z-50 border-b"
+        style={{ background: 'rgba(248,248,245,0.92)', backdropFilter: 'blur(12px)', borderColor: 'rgba(23,24,45,0.08)' }}
+      >
+        <div className="max-w-6xl mx-auto px-10 h-14 flex items-center justify-between">
+          <Link href="/" className="font-bold text-[17px]" style={{ color: '#17182D', letterSpacing: '-0.01em' }}>
             과일가게
           </Link>
-          <nav className="hidden md:flex items-center gap-8 text-[15px] text-neutral-500 font-medium">
-            <Link href="/products" className="hover:text-neutral-900 transition-colors">상품</Link>
-          </nav>
-          <div className="flex items-center gap-3 text-[14px]">
+          <nav className="flex items-center gap-6" style={{ fontSize: 14, color: 'rgba(23,24,45,0.55)', fontWeight: 500 }}>
+            <Link href="/products" className="hover:text-[#17182D] transition-colors">상품</Link>
             {session ? (
               <>
-                <Link
-                  href="/mypage"
-                  className="flex items-center gap-1.5 text-neutral-600 hover:text-neutral-900 transition-colors"
-                >
-                  <User size={15} />
-                  <span className="hidden sm:inline">{session.name}님</span>
+                <Link href="/mypage" className="flex items-center gap-1.5 hover:text-[#17182D] transition-colors">
+                  <User size={14} /> {session.name}님
                 </Link>
                 <LogoutButton name={session.name} />
               </>
             ) : (
               <>
-                <Link href="/login" className="text-neutral-500 hover:text-neutral-800 transition-colors">
-                  로그인
-                </Link>
+                <Link href="/login" className="hover:text-[#17182D] transition-colors">로그인</Link>
                 <Link
                   href="/register"
-                  className="bg-neutral-900 text-white px-4 py-2 rounded-full text-[13px] font-semibold hover:bg-neutral-700 transition-colors"
+                  className="font-semibold text-white px-4 py-1.5 transition-opacity hover:opacity-80"
+                  style={{ background: '#17182D', borderRadius: 10, fontSize: 13 }}
                 >
                   회원가입
                 </Link>
               </>
             )}
-          </div>
+          </nav>
         </div>
       </header>
 
       <main className="flex-1">{children}</main>
 
-      <footer className="bg-neutral-50 border-t border-neutral-100 mt-20">
-        <div className="max-w-6xl mx-auto px-5 py-12">
-          <div className="flex flex-col md:flex-row justify-between gap-8">
-            <div>
-              <p className="font-bold text-neutral-900 text-base mb-2">과일가게</p>
-              <p className="text-sm text-neutral-400 leading-relaxed max-w-xs">
-                제철 과일을 직접 선별해 가장 신선한 상태로 제공합니다.<br />
-                픽업 예약으로 대기 없이 편하게 받아가세요.
-              </p>
-            </div>
-            <div className="flex gap-16 text-sm">
-              <div>
-                <p className="font-semibold text-neutral-700 mb-3">서비스</p>
-                <ul className="space-y-2 text-neutral-400">
-                  <li><Link href="/products" className="hover:text-neutral-700 transition-colors">상품 예약</Link></li>
-                  <li><Link href="/mypage" className="hover:text-neutral-700 transition-colors">내 예약</Link></li>
+      <footer style={{ background: '#FFFFFF', borderTop: '1px solid rgba(23,24,45,0.07)' }} className="mt-24">
+        <div className="max-w-6xl mx-auto px-10 py-14 flex flex-col md:flex-row justify-between gap-10">
+          <div>
+            <p className="font-bold text-[15px] mb-2" style={{ color: '#17182D' }}>과일가게</p>
+            <p className="text-sm leading-relaxed" style={{ color: 'rgba(23,24,45,0.45)', maxWidth: 260 }}>
+              제철 과일을 직접 선별해 가장 신선한 상태로 제공합니다.
+              픽업 예약으로 대기 없이 편하게 받아가세요.
+            </p>
+          </div>
+          <div className="flex gap-14 text-sm">
+            {[
+              { title: '서비스', links: [{ label: '상품 예약', href: '/products' }, { label: '내 예약', href: '/mypage' }] },
+              { title: '계정',   links: [{ label: '로그인',  href: '/login'    }, { label: '회원가입', href: '/register' }] },
+            ].map((g) => (
+              <div key={g.title}>
+                <p className="font-semibold mb-3" style={{ color: '#17182D' }}>{g.title}</p>
+                <ul className="space-y-2">
+                  {g.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="transition-colors hover:text-[#17182D]" style={{ color: 'rgba(23,24,45,0.45)' }}>
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
-              <div>
-                <p className="font-semibold text-neutral-700 mb-3">계정</p>
-                <ul className="space-y-2 text-neutral-400">
-                  <li><Link href="/login" className="hover:text-neutral-700 transition-colors">로그인</Link></li>
-                  <li><Link href="/register" className="hover:text-neutral-700 transition-colors">회원가입</Link></li>
-                </ul>
-              </div>
-            </div>
+            ))}
           </div>
-          <div className="border-t border-neutral-200 mt-10 pt-6 text-xs text-neutral-400">
-            © 2025 과일가게. All rights reserved.
-          </div>
+        </div>
+        <div className="max-w-6xl mx-auto px-10 pb-8 text-xs" style={{ color: 'rgba(23,24,45,0.3)' }}>
+          © 2025 과일가게. All rights reserved.
         </div>
       </footer>
     </div>

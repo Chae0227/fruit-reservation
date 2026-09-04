@@ -2,10 +2,13 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Minus, ShoppingBag, X } from 'lucide-react'
 import type { Product } from '@/lib/types'
 
 type CartItem = { product: Product; quantity: number }
+
+const EASE = [0.32, 0.72, 0, 1] as const
 
 export default function ProductList({ products, isLoggedIn }: { products: Product[]; isLoggedIn: boolean }) {
   const [cart, setCart] = useState<CartItem[]>([])
@@ -53,8 +56,8 @@ export default function ProductList({ products, isLoggedIn }: { products: Produc
 
   if (!products.length) {
     return (
-      <div className="text-center py-32 text-neutral-400">
-        <ShoppingBag size={36} className="mx-auto mb-4 opacity-30" />
+      <div className="text-center py-32" style={{ color: 'rgba(23,24,45,0.35)' }}>
+        <ShoppingBag size={32} className="mx-auto mb-4 opacity-30" />
         <p className="text-sm">현재 예약 가능한 상품이 없습니다.</p>
       </div>
     )
@@ -62,139 +65,169 @@ export default function ProductList({ products, isLoggedIn }: { products: Produc
 
   return (
     <div className="flex flex-col lg:flex-row gap-8 items-start">
-      {/* Product grid */}
-      <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-5">
+      {/* Grid */}
+      <motion.div
+        className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-5"
+        initial="hidden"
+        animate="visible"
+        variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.07 } } }}
+      >
         {products.map((p) => {
           const inCart = cart.find((c) => c.product.id === p.id)
           return (
-            <div
+            <motion.div
               key={p.id}
-              className="group rounded-2xl overflow-hidden border border-neutral-100 hover:border-neutral-200 hover:shadow-md transition-all duration-300 bg-white"
+              variants={{
+                hidden: { opacity: 0, y: 16 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.42, ease: EASE } },
+              }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className="rounded-[20px] overflow-hidden"
+              style={{ background: '#FFFFFF', boxShadow: '0 2px 12px rgba(23,24,45,0.06)' }}
             >
-              <div
-                className="h-48 overflow-hidden flex items-center justify-center relative"
-                style={{ background: 'linear-gradient(135deg, #faf8f4, #f0e9dc)' }}
-              >
+              <div className="h-48 flex items-center justify-center overflow-hidden" style={{ background: '#FFF0E5' }}>
                 {p.image_url ? (
-                  <img
-                    src={p.image_url}
-                    alt={p.name}
-                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                  <img src={p.image_url} alt={p.name} className="h-full w-full object-cover" />
                 ) : (
-                  <div className="w-20 h-20 rounded-full bg-neutral-200/60" />
+                  <div className="w-18 h-18 rounded-full" style={{ background: 'rgba(249,115,22,0.15)', width: 72, height: 72 }} />
                 )}
               </div>
               <div className="p-4">
-                <h3 className="font-semibold text-neutral-900 text-[15px]">{p.name}</h3>
+                <h3 className="font-semibold text-[15px] mb-1" style={{ color: '#17182D' }}>{p.name}</h3>
                 {p.description && (
-                  <p className="text-xs text-neutral-400 mt-1 line-clamp-2 leading-relaxed">{p.description}</p>
+                  <p className="text-[13px] line-clamp-2 leading-relaxed mb-2" style={{ color: 'rgba(23,24,45,0.45)' }}>
+                    {p.description}
+                  </p>
                 )}
-                <p className="font-bold text-[15px] mt-3" style={{ color: '#ea6c0a' }}>
-                  {p.price.toLocaleString()}원
-                </p>
+                <p className="font-bold text-[15px] mb-3" style={{ color: '#F97316' }}>{p.price.toLocaleString()}원</p>
+
                 {inCart ? (
-                  <div className="flex items-center gap-2 mt-3">
-                    <button
+                  <div className="flex items-center gap-2">
+                    <motion.button
                       onClick={() => updateQty(p.id, -1)}
-                      className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center hover:bg-neutral-50 transition-colors"
+                      whileTap={{ scale: 0.92 }}
+                      className="w-8 h-8 flex items-center justify-center"
+                      style={{ border: '1px solid rgba(23,24,45,0.15)', borderRadius: 8 }}
                     >
-                      <Minus size={13} className="text-neutral-600" />
-                    </button>
-                    <span className="font-bold text-neutral-900 w-6 text-center">{inCart.quantity}</span>
-                    <button
+                      <Minus size={13} style={{ color: '#17182D' }} />
+                    </motion.button>
+                    <span className="font-bold text-[15px] w-6 text-center" style={{ color: '#17182D' }}>{inCart.quantity}</span>
+                    <motion.button
                       onClick={() => updateQty(p.id, 1)}
-                      className="w-8 h-8 rounded-full flex items-center justify-center transition-colors"
-                      style={{ background: '#f97316' }}
+                      whileTap={{ scale: 0.92 }}
+                      className="w-8 h-8 flex items-center justify-center"
+                      style={{ background: '#17182D', borderRadius: 8 }}
                     >
                       <Plus size={13} className="text-white" />
-                    </button>
+                    </motion.button>
                   </div>
                 ) : (
-                  <button
+                  <motion.button
                     onClick={() => addToCart(p)}
-                    className="mt-3 w-full py-2.5 rounded-xl border-2 border-neutral-900 text-neutral-900 text-[13px] font-semibold hover:bg-neutral-900 hover:text-white transition-all"
+                    whileTap={{ scale: 0.95 }}
+                    className="w-full py-2.5 text-[13px] font-semibold transition-colors"
+                    style={{ border: '1.5px solid #17182D', borderRadius: 10, color: '#17182D', background: 'transparent' }}
+                    onHoverStart={(e) => { (e.target as HTMLElement).style.background = '#17182D'; (e.target as HTMLElement).style.color = '#fff' }}
+                    onHoverEnd={(e) => { (e.target as HTMLElement).style.background = 'transparent'; (e.target as HTMLElement).style.color = '#17182D' }}
                   >
                     장바구니 담기
-                  </button>
+                  </motion.button>
                 )}
               </div>
-            </div>
+            </motion.div>
           )
         })}
-      </div>
+      </motion.div>
 
-      {/* Cart */}
+      {/* Cart panel */}
       <div className="lg:w-80 w-full shrink-0">
-        <div className="bg-white rounded-2xl border border-neutral-100 shadow-sm sticky top-24 overflow-hidden">
-          <div className="px-5 py-4 border-b border-neutral-100 flex items-center justify-between">
+        <div className="rounded-[20px] overflow-hidden sticky top-20" style={{ background: '#FFFFFF', boxShadow: '0 20px 60px rgba(23,24,45,0.08)' }}>
+          <div className="px-5 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid rgba(23,24,45,0.07)' }}>
             <div className="flex items-center gap-2">
-              <ShoppingBag size={16} className="text-neutral-700" />
-              <span className="font-bold text-neutral-900 text-[15px]">예약 장바구니</span>
+              <ShoppingBag size={15} style={{ color: '#17182D' }} />
+              <span className="font-bold text-[14px]" style={{ color: '#17182D' }}>예약 장바구니</span>
             </div>
-            {totalCount > 0 && (
-              <span
-                className="text-xs font-bold text-white rounded-full w-5 h-5 flex items-center justify-center"
-                style={{ background: '#f97316' }}
-              >
-                {totalCount}
-              </span>
-            )}
+            <AnimatePresence>
+              {totalCount > 0 && (
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  transition={{ type: 'spring', stiffness: 480, damping: 20 }}
+                  className="text-[11px] font-bold text-white flex items-center justify-center"
+                  style={{ background: '#F97316', borderRadius: '50%', width: 20, height: 20 }}
+                >
+                  {totalCount}
+                </motion.span>
+              )}
+            </AnimatePresence>
           </div>
 
           <div className="p-5">
             {cart.length === 0 ? (
-              <div className="text-center py-10 text-neutral-400">
-                <ShoppingBag size={28} className="mx-auto mb-3 opacity-25" />
-                <p className="text-sm">담은 상품이 없습니다.</p>
+              <div className="text-center py-10" style={{ color: 'rgba(23,24,45,0.3)' }}>
+                <ShoppingBag size={26} className="mx-auto mb-3 opacity-30" />
+                <p className="text-[13px]">담은 상품이 없습니다.</p>
               </div>
             ) : (
               <>
-                <ul className="space-y-3 mb-5">
-                  {cart.map((c) => (
-                    <li key={c.product.id} className="flex items-start gap-3">
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[13px] font-semibold text-neutral-800 truncate">{c.product.name}</p>
-                        <p className="text-xs text-neutral-400 mt-0.5">
-                          {c.product.price.toLocaleString()}원 × {c.quantity}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <span className="text-[13px] font-bold text-neutral-900">
-                          {(c.product.price * c.quantity).toLocaleString()}원
-                        </span>
-                        <button onClick={() => removeFromCart(c.product.id)} className="text-neutral-300 hover:text-neutral-500 ml-1">
-                          <X size={14} />
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                <AnimatePresence>
+                  <ul className="space-y-3 mb-5">
+                    {cart.map((c) => (
+                      <motion.li
+                        key={c.product.id}
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 8 }}
+                        transition={{ duration: 0.22, ease: EASE }}
+                        className="flex items-start justify-between gap-2"
+                      >
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[13px] font-semibold truncate" style={{ color: '#17182D' }}>{c.product.name}</p>
+                          <p className="text-[12px]" style={{ color: 'rgba(23,24,45,0.4)' }}>
+                            {c.product.price.toLocaleString()}원 × {c.quantity}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span className="text-[13px] font-bold" style={{ color: '#17182D' }}>
+                            {(c.product.price * c.quantity).toLocaleString()}원
+                          </span>
+                          <button onClick={() => removeFromCart(c.product.id)}>
+                            <X size={13} style={{ color: 'rgba(23,24,45,0.3)' }} />
+                          </button>
+                        </div>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </AnimatePresence>
 
-                <div className="border-t border-neutral-100 pt-4 mb-4">
+                <div className="pt-4 mb-4" style={{ borderTop: '1px solid rgba(23,24,45,0.07)' }}>
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm text-neutral-500">상품 합계</span>
-                    <span className="font-bold text-neutral-900 text-[15px]">{totalPrice.toLocaleString()}원</span>
+                    <span className="text-[13px]" style={{ color: 'rgba(23,24,45,0.5)' }}>합계</span>
+                    <span className="font-bold text-[16px]" style={{ color: '#17182D' }}>{totalPrice.toLocaleString()}원</span>
                   </div>
-                  <p className="text-xs text-neutral-400">결제는 픽업 시 현장에서 진행됩니다</p>
+                  <p className="text-[12px]" style={{ color: 'rgba(23,24,45,0.35)' }}>결제는 픽업 시 현장에서 진행됩니다</p>
                 </div>
 
                 <textarea
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
-                  placeholder="요청사항을 입력하세요 (선택)"
-                  className="w-full text-[13px] border border-neutral-200 rounded-xl p-3 resize-none mb-4 focus:outline-none focus:border-neutral-400 leading-relaxed placeholder:text-neutral-300"
+                  placeholder="요청사항 (선택)"
                   rows={2}
+                  className="w-full text-[13px] resize-none mb-4 px-3 py-2.5 focus:outline-none leading-relaxed placeholder:text-neutral-300"
+                  style={{ border: '1px solid rgba(23,24,45,0.15)', borderRadius: 10, color: '#17182D' }}
                 />
 
-                <button
+                <motion.button
                   onClick={handleReserve}
                   disabled={loading}
-                  className="w-full py-3.5 rounded-xl font-bold text-[15px] text-white transition-all disabled:opacity-50 hover:opacity-90"
-                  style={{ background: 'linear-gradient(135deg, #f97316, #ea580c)' }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 380, damping: 22 }}
+                  className="w-full py-3.5 font-bold text-[15px] text-white disabled:opacity-50"
+                  style={{ background: '#17182D', borderRadius: 12 }}
                 >
                   {loading ? '예약 중...' : isLoggedIn ? '예약 완료하기' : '로그인 후 예약하기'}
-                </button>
+                </motion.button>
               </>
             )}
           </div>

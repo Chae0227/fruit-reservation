@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
+
+const EASE = [0.32, 0.72, 0, 1] as const
 
 export default function LoginPage() {
   const [phone, setPhone] = useState('')
@@ -28,71 +31,92 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex" style={{ background: '#faf8f4' }}>
-      <div className="hidden lg:block flex-1 relative overflow-hidden" style={{ background: 'linear-gradient(155deg, #1c1c1c, #2e1a0e)' }}>
-        <div className="absolute inset-0 flex flex-col justify-center px-16">
-          <p className="text-xs font-semibold tracking-widest uppercase text-orange-400 mb-4">과일가게</p>
-          <h2 className="text-4xl font-bold text-white leading-tight mb-4">
+    <div className="min-h-screen flex" style={{ background: '#F8F8F5' }}>
+      {/* Left brand panel */}
+      <div className="hidden lg:flex flex-1 flex-col justify-center px-16" style={{ background: '#17182D' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+        >
+          <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: '#F97316' }}>과일가게</p>
+          <h2 className="text-4xl font-bold text-white leading-tight mb-4" style={{ letterSpacing: '-0.025em' }}>
             신선한 과일을<br />미리 예약하세요
           </h2>
-          <p className="text-neutral-400 leading-relaxed">
+          <p className="text-[15px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
             실명 예약으로 대기 없이<br />편하게 픽업하실 수 있습니다.
           </p>
-        </div>
+        </motion.div>
       </div>
 
-      <div className="flex-1 flex items-center justify-center px-6 py-16">
-        <div className="w-full max-w-sm">
-          <Link href="/" className="text-sm text-neutral-400 hover:text-neutral-700 mb-10 inline-block transition-colors">
+      {/* Right form */}
+      <div className="flex-1 flex items-center justify-center px-8 py-16">
+        <motion.div
+          className="w-full max-w-sm"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.42, ease: EASE }}
+        >
+          <Link href="/" className="text-[13px] mb-10 inline-block transition-opacity hover:opacity-60" style={{ color: 'rgba(23,24,45,0.45)' }}>
             ← 홈으로
           </Link>
-          <h1 className="text-2xl font-bold text-neutral-900 mb-1">로그인</h1>
-          <p className="text-sm text-neutral-400 mb-8">계정에 로그인해주세요.</p>
+          <h1 className="text-[26px] font-bold mb-1" style={{ color: '#17182D', letterSpacing: '-0.02em' }}>로그인</h1>
+          <p className="text-[14px] mb-8" style={{ color: 'rgba(23,24,45,0.45)' }}>계정에 로그인해주세요.</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-[13px] font-semibold text-neutral-700 mb-1.5">전화번호</label>
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="01012345678"
-                required
-                className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-[15px] focus:outline-none focus:border-neutral-400 bg-white transition-colors placeholder:text-neutral-300"
-              />
-            </div>
-            <div>
-              <label className="block text-[13px] font-semibold text-neutral-700 mb-1.5">비밀번호</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-[15px] focus:outline-none focus:border-neutral-400 bg-white transition-colors"
-              />
-            </div>
-            {error && (
-              <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3 text-sm text-red-600">
-                {error}
+            {[
+              { label: '전화번호', type: 'tel',      value: phone,    onChange: setPhone,    placeholder: '01012345678' },
+              { label: '비밀번호', type: 'password', value: password, onChange: setPassword, placeholder: '' },
+            ].map(({ label, type, value, onChange, placeholder }) => (
+              <div key={label}>
+                <label className="block text-[13px] font-semibold mb-1.5" style={{ color: '#17182D' }}>{label}</label>
+                <input
+                  type={type}
+                  value={value}
+                  onChange={(e) => onChange(e.target.value)}
+                  placeholder={placeholder}
+                  required
+                  className="w-full px-4 py-3 text-[15px] focus:outline-none transition-all"
+                  style={{
+                    background: '#FFFFFF',
+                    border: '1px solid rgba(23,24,45,0.15)',
+                    borderRadius: 12,
+                    color: '#17182D',
+                  }}
+                />
               </div>
+            ))}
+
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="px-4 py-3 text-[13px]"
+                style={{ background: '#FFF0E5', borderRadius: 10, color: '#c2410c' }}
+              >
+                {error}
+              </motion.div>
             )}
-            <button
+
+            <motion.button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-xl font-bold text-[15px] text-white transition-all disabled:opacity-50 hover:opacity-90 mt-2"
-              style={{ background: 'linear-gradient(135deg, #f97316, #ea580c)' }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: 'spring', stiffness: 380, damping: 22 }}
+              className="w-full py-3.5 font-bold text-[15px] text-white disabled:opacity-50 mt-1"
+              style={{ background: '#17182D', borderRadius: 12 }}
             >
               {loading ? '로그인 중...' : '로그인'}
-            </button>
+            </motion.button>
           </form>
 
-          <p className="text-center text-sm text-neutral-400 mt-8">
+          <p className="text-center text-[13px] mt-8" style={{ color: 'rgba(23,24,45,0.45)' }}>
             계정이 없으신가요?{' '}
-            <Link href="/register" className="font-semibold text-neutral-800 hover:underline">
+            <Link href="/register" className="font-semibold hover:underline" style={{ color: '#17182D' }}>
               회원가입
             </Link>
           </p>
-        </div>
+        </motion.div>
       </div>
     </div>
   )
