@@ -33,19 +33,19 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex" style={{ background: '#F8F8F5' }}>
-      <div className="hidden lg:flex flex-1 flex-col justify-center px-16" style={{ background: '#17182D' }}>
+      <div className="hidden lg:flex flex-1 flex-col justify-center px-16" style={{ background: '#FFF0E5' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE }}
         >
           <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: '#F97316' }}>과일가게</p>
-          <h2 className="text-4xl font-bold text-white leading-tight mb-6" style={{ letterSpacing: '-0.025em' }}>
+          <h2 className="text-4xl font-bold leading-tight mb-6" style={{ color: '#17182D', letterSpacing: '-0.025em' }}>
             1분이면<br />시작할 수 있어요
           </h2>
           <ul className="space-y-3">
             {['이름과 연락처만 입력하면 완료', '로그인 후 바로 예약 가능', '픽업 시 현장 결제'].map((t) => (
-              <li key={t} className="flex items-center gap-2.5 text-[15px]" style={{ color: 'rgba(255,255,255,0.45)' }}>
+              <li key={t} className="flex items-center gap-2.5 text-[15px]" style={{ color: 'rgba(23,24,45,0.55)' }}>
                 <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#F97316' }} />
                 {t}
               </li>

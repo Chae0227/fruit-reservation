@@ -16,15 +16,15 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (!session || session.role !== 'admin') redirect('/login')
 
   return (
-    <div className="min-h-screen flex bg-gray-50">
-      <aside className="w-56 shrink-0 bg-white border-r border-gray-100 flex flex-col">
-        <div className="px-4 py-5 border-b border-gray-100 flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-green-600 flex items-center justify-center">
-            <Store size={14} className="text-white" />
+    <div className="min-h-screen flex" style={{ background: '#F8F8F5' }}>
+      <aside className="w-56 shrink-0 flex flex-col" style={{ background: '#FFFFFF', borderRight: '1px solid rgba(23,24,45,0.07)' }}>
+        <div className="px-4 py-5 flex items-center gap-2.5" style={{ borderBottom: '1px solid rgba(23,24,45,0.06)' }}>
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: '#FFF0E5' }}>
+            <Store size={14} style={{ color: '#F97316' }} />
           </div>
           <div>
-            <p className="font-bold text-gray-800 text-sm leading-none">과일가게</p>
-            <p className="text-xs text-gray-400 mt-0.5">관리자</p>
+            <p className="font-bold text-sm leading-none" style={{ color: '#17182D' }}>과일가게</p>
+            <p className="text-xs mt-0.5" style={{ color: 'rgba(23,24,45,0.4)' }}>관리자</p>
           </div>
         </div>
 
@@ -34,8 +34,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           ))}
         </nav>
 
-        <div className="p-4 border-t border-gray-100">
-          <p className="text-xs font-medium text-gray-700 mb-0.5">{session.name}</p>
+        <div className="p-4" style={{ borderTop: '1px solid rgba(23,24,45,0.06)' }}>
+          <p className="text-xs font-medium mb-0.5" style={{ color: '#17182D' }}>{session.name}</p>
           <AdminLogoutButton />
         </div>
       </aside>

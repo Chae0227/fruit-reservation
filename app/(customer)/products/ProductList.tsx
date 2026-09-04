@@ -127,8 +127,8 @@ export default function ProductList({ products, isLoggedIn }: { products: Produc
                     whileTap={{ scale: 0.95 }}
                     className="w-full py-2.5 text-[13px] font-semibold transition-colors"
                     style={{ border: '1.5px solid #17182D', borderRadius: 10, color: '#17182D', background: 'transparent' }}
-                    onHoverStart={(e) => { (e.target as HTMLElement).style.background = '#17182D'; (e.target as HTMLElement).style.color = '#fff' }}
-                    onHoverEnd={(e) => { (e.target as HTMLElement).style.background = 'transparent'; (e.target as HTMLElement).style.color = '#17182D' }}
+                    onHoverStart={(e) => { (e.target as HTMLElement).style.background = '#F97316'; (e.target as HTMLElement).style.color = '#fff'; (e.target as HTMLElement).style.borderColor = '#F97316' }}
+                    onHoverEnd={(e) => { (e.target as HTMLElement).style.background = 'transparent'; (e.target as HTMLElement).style.color = '#17182D'; (e.target as HTMLElement).style.borderColor = '#17182D' }}
                   >
                     장바구니 담기
                   </motion.button>
@@ -224,7 +224,7 @@ export default function ProductList({ products, isLoggedIn }: { products: Produc
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: 'spring', stiffness: 380, damping: 22 }}
                   className="w-full py-3.5 font-bold text-[15px] text-white disabled:opacity-50"
-                  style={{ background: '#17182D', borderRadius: 12 }}
+                  style={{ background: '#F97316', borderRadius: 12 }}
                 >
                   {loading ? '예약 중...' : isLoggedIn ? '예약 완료하기' : '로그인 후 예약하기'}
                 </motion.button>

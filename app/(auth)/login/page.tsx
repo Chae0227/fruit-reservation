@@ -33,19 +33,27 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex" style={{ background: '#F8F8F5' }}>
       {/* Left brand panel */}
-      <div className="hidden lg:flex flex-1 flex-col justify-center px-16" style={{ background: '#17182D' }}>
+      <div className="hidden lg:flex flex-1 flex-col justify-center px-16" style={{ background: '#FFF0E5' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE }}
         >
           <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: '#F97316' }}>과일가게</p>
-          <h2 className="text-4xl font-bold text-white leading-tight mb-4" style={{ letterSpacing: '-0.025em' }}>
+          <h2 className="text-4xl font-bold leading-tight mb-4" style={{ color: '#17182D', letterSpacing: '-0.025em' }}>
             신선한 과일을<br />미리 예약하세요
           </h2>
-          <p className="text-[15px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
+          <p className="text-[15px] leading-relaxed" style={{ color: 'rgba(23,24,45,0.5)' }}>
             실명 예약으로 대기 없이<br />편하게 픽업하실 수 있습니다.
           </p>
+          <div className="mt-10 space-y-3">
+            {['매일 직접 선별한 신선한 과일', '실명 예약으로 노쇼 없는 신뢰', '픽업 시 현장 결제로 간편하게'].map((t) => (
+              <div key={t} className="flex items-center gap-2.5 text-[14px]" style={{ color: 'rgba(23,24,45,0.55)' }}>
+                <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#F97316' }} />
+                {t}
+              </div>
+            ))}
+          </div>
         </motion.div>
       </div>
 
@@ -104,7 +112,7 @@ export default function LoginPage() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
               className="w-full py-3.5 font-bold text-[15px] text-white disabled:opacity-50 mt-1"
-              style={{ background: '#17182D', borderRadius: 12 }}
+              style={{ background: '#F97316', borderRadius: 12 }}
             >
               {loading ? '로그인 중...' : '로그인'}
             </motion.button>

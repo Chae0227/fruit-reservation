@@ -10,8 +10,9 @@ export default async function AdminReservationsPage() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-gray-800 mb-1">예약 관리</h1>
-      <p className="text-sm text-gray-400 mb-8">예약 현황을 확인하고 상태를 변경하세요.</p>
+      <p className="text-[12px] font-semibold tracking-widest uppercase mb-1" style={{ color: '#F97316' }}>Reservations</p>
+      <h1 className="text-[22px] font-bold mb-1" style={{ color: '#17182D', letterSpacing: '-0.02em' }}>예약 관리</h1>
+      <p className="text-[13px] mb-8" style={{ color: 'rgba(23,24,45,0.4)' }}>예약 현황을 확인하고 상태를 변경하세요.</p>
       <ReservationManager initialReservations={reservations ?? []} />
     </div>
   )

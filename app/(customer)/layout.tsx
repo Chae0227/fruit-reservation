@@ -8,16 +8,19 @@ export default async function CustomerLayout({ children }: { children: React.Rea
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: '#F8F8F5' }}>
-      {/* Nav */}
       <header
-        className="sticky top-0 z-50 border-b"
-        style={{ background: 'rgba(248,248,245,0.92)', backdropFilter: 'blur(12px)', borderColor: 'rgba(23,24,45,0.08)' }}
+        className="sticky top-0 z-50"
+        style={{
+          background: 'rgba(248,248,245,0.9)',
+          backdropFilter: 'blur(12px)',
+          borderBottom: '1px solid rgba(23,24,45,0.07)',
+        }}
       >
         <div className="max-w-6xl mx-auto px-10 h-14 flex items-center justify-between">
-          <Link href="/" className="font-bold text-[17px]" style={{ color: '#17182D', letterSpacing: '-0.01em' }}>
+          <Link href="/" style={{ color: '#17182D', fontWeight: 700, fontSize: 17, letterSpacing: '-0.01em' }}>
             과일가게
           </Link>
-          <nav className="flex items-center gap-6" style={{ fontSize: 14, color: 'rgba(23,24,45,0.55)', fontWeight: 500 }}>
+          <nav className="flex items-center gap-6" style={{ fontSize: 14, fontWeight: 500, color: 'rgba(23,24,45,0.5)' }}>
             <Link href="/products" className="hover:text-[#17182D] transition-colors">상품</Link>
             {session ? (
               <>
@@ -31,8 +34,8 @@ export default async function CustomerLayout({ children }: { children: React.Rea
                 <Link href="/login" className="hover:text-[#17182D] transition-colors">로그인</Link>
                 <Link
                   href="/register"
-                  className="font-semibold text-white px-4 py-1.5 transition-opacity hover:opacity-80"
-                  style={{ background: '#17182D', borderRadius: 10, fontSize: 13 }}
+                  className="font-semibold text-white transition-opacity hover:opacity-80"
+                  style={{ background: '#F97316', borderRadius: 10, fontSize: 13, padding: '6px 14px' }}
                 >
                   회원가입
                 </Link>
@@ -44,7 +47,7 @@ export default async function CustomerLayout({ children }: { children: React.Rea
 
       <main className="flex-1">{children}</main>
 
-      <footer style={{ background: '#FFFFFF', borderTop: '1px solid rgba(23,24,45,0.07)' }} className="mt-24">
+      <footer className="mt-24" style={{ background: '#FFFFFF', borderTop: '1px solid rgba(23,24,45,0.07)' }}>
         <div className="max-w-6xl mx-auto px-10 py-14 flex flex-col md:flex-row justify-between gap-10">
           <div>
             <p className="font-bold text-[15px] mb-2" style={{ color: '#17182D' }}>과일가게</p>
@@ -56,14 +59,14 @@ export default async function CustomerLayout({ children }: { children: React.Rea
           <div className="flex gap-14 text-sm">
             {[
               { title: '서비스', links: [{ label: '상품 예약', href: '/products' }, { label: '내 예약', href: '/mypage' }] },
-              { title: '계정',   links: [{ label: '로그인',  href: '/login'    }, { label: '회원가입', href: '/register' }] },
+              { title: '계정',   links: [{ label: '로그인',   href: '/login'    }, { label: '회원가입', href: '/register' }] },
             ].map((g) => (
               <div key={g.title}>
                 <p className="font-semibold mb-3" style={{ color: '#17182D' }}>{g.title}</p>
                 <ul className="space-y-2">
                   {g.links.map((l) => (
                     <li key={l.href}>
-                      <Link href={l.href} className="transition-colors hover:text-[#17182D]" style={{ color: 'rgba(23,24,45,0.45)' }}>
+                      <Link href={l.href} className="hover:text-[#17182D] transition-colors" style={{ color: 'rgba(23,24,45,0.45)' }}>
                         {l.label}
                       </Link>
                     </li>

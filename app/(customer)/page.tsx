@@ -45,7 +45,7 @@ export default async function LandingPage() {
             <Link
               href="/products"
               className="inline-flex items-center gap-2 font-semibold text-[15px] text-white px-6 py-3 transition-opacity hover:opacity-80"
-              style={{ background: '#17182D', borderRadius: 12 }}
+              style={{ background: '#F97316', borderRadius: 12 }}
             >
               예약하기 <ArrowRight size={15} />
             </Link>
@@ -160,13 +160,14 @@ export default async function LandingPage() {
       <MotionReveal>
         <section
           className="rounded-[28px] p-10 mb-10 flex flex-col md:flex-row items-center justify-between gap-6"
-          style={{ background: '#17182D' }}
+          style={{ background: '#FFF0E5' }}
         >
           <div>
-            <h2 className="text-[22px] font-bold text-white mb-2" style={{ letterSpacing: '-0.02em' }}>
+            <p className="text-[12px] font-semibold tracking-widest uppercase mb-2" style={{ color: '#F97316' }}>Get Started</p>
+            <h2 className="text-[22px] font-bold mb-2" style={{ color: '#17182D', letterSpacing: '-0.02em' }}>
               지금 바로 시작하세요
             </h2>
-            <p className="text-[15px]" style={{ color: 'rgba(255,255,255,0.45)' }}>
+            <p className="text-[15px]" style={{ color: 'rgba(23,24,45,0.5)' }}>
               회원가입 후 1분이면 첫 예약이 완료됩니다.
             </p>
           </div>

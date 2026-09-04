@@ -13,11 +13,12 @@ export default function NavLink({ href, Icon, label }: Props) {
   return (
     <Link
       href={href}
-      className={`flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg mx-2 transition-all ${
+      className="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg mx-2 transition-all"
+      style={
         active
-          ? 'bg-blue-50 text-blue-700 font-semibold'
-          : 'text-gray-500 hover:bg-gray-50 hover:text-gray-800'
-      }`}
+          ? { background: '#FFF0E5', color: '#F97316', fontWeight: 600 }
+          : { color: 'rgba(23,24,45,0.5)' }
+      }
     >
       <Icon size={15} />
       {label}

@@ -58,18 +58,21 @@ export default function ReservationManager({ initialReservations }: { initialRes
   return (
     <div>
       <div className="flex items-center justify-between mb-5">
-        <div className="flex gap-1 bg-gray-100 p-1 rounded-lg">
+        <div className="flex gap-1 p-1 rounded-xl" style={{ background: 'rgba(23,24,45,0.06)' }}>
           {filterTabs.map((tab) => {
             const count = tab.value === 'all' ? reservations.length : reservations.filter((r) => r.status === tab.value).length
+            const active = filter === tab.value
             return (
               <button
                 key={tab.value}
                 onClick={() => setFilter(tab.value)}
-                className={`px-3 py-1.5 text-xs rounded-md font-medium transition-all ${
-                  filter === tab.value ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-500 hover:text-gray-700'
-                }`}
+                className="px-3 py-1.5 text-xs rounded-lg font-medium transition-all"
+                style={active
+                  ? { background: '#FFFFFF', color: '#17182D', boxShadow: '0 1px 4px rgba(23,24,45,0.1)' }
+                  : { color: 'rgba(23,24,45,0.45)' }
+                }
               >
-                {tab.label} <span className="ml-1 text-gray-400">{count}</span>
+                {tab.label} <span className="ml-1" style={{ color: 'rgba(23,24,45,0.3)' }}>{count}</span>
               </button>
             )
           })}
@@ -77,7 +80,8 @@ export default function ReservationManager({ initialReservations }: { initialRes
         <div className="flex gap-2">
           <button
             onClick={handleExport}
-            className="flex items-center gap-1.5 px-3 py-2 bg-white border border-gray-200 text-gray-600 text-xs font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg transition-colors"
+            style={{ background: '#FFFFFF', border: '1px solid rgba(23,24,45,0.12)', color: 'rgba(23,24,45,0.6)' }}
           >
             <Download size={13} />
             엑셀 다운로드
@@ -85,7 +89,8 @@ export default function ReservationManager({ initialReservations }: { initialRes
           <button
             onClick={handleReset}
             disabled={resetting}
-            className="flex items-center gap-1.5 px-3 py-2 bg-white border border-red-200 text-red-500 text-xs font-medium rounded-lg hover:bg-red-50 transition-colors disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg transition-colors disabled:opacity-50"
+            style={{ background: '#FFFFFF', border: '1px solid rgba(239,68,68,0.3)', color: '#ef4444' }}
           >
             <Trash2 size={13} />
             내역 초기화
@@ -93,35 +98,31 @@ export default function ReservationManager({ initialReservations }: { initialRes
         </div>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+      <div className="rounded-[20px] overflow-hidden" style={{ background: '#FFFFFF', boxShadow: '0 2px 12px rgba(23,24,45,0.06)' }}>
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-xs text-gray-400 bg-gray-50 border-b border-gray-100">
-              <th className="px-5 py-3 text-left font-medium">예약번호</th>
-              <th className="px-5 py-3 text-left font-medium">이름</th>
-              <th className="px-5 py-3 text-left font-medium">연락처</th>
-              <th className="px-5 py-3 text-left font-medium">상품</th>
-              <th className="px-5 py-3 text-left font-medium">금액</th>
-              <th className="px-5 py-3 text-left font-medium">상태</th>
-              <th className="px-5 py-3 text-left font-medium">일시</th>
+            <tr style={{ borderBottom: '1px solid rgba(23,24,45,0.05)' }}>
+              {['예약번호', '이름', '연락처', '상품', '금액', '상태', '일시'].map((h) => (
+                <th key={h} className="px-5 py-3 text-left text-[12px] font-medium" style={{ color: 'rgba(23,24,45,0.4)' }}>{h}</th>
+              ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-50">
+          <tbody>
             {filtered.map((r) => {
               const total = r.reservation_items?.reduce(
                 (sum, item) => sum + (item.products?.price ?? 0) * item.quantity, 0
               ) ?? 0
               const currentStatus = statusOptions.find((s) => s.value === r.status)
               return (
-                <tr key={r.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-5 py-3.5 font-mono text-xs text-gray-400">{r.id.slice(0, 8).toUpperCase()}</td>
-                  <td className="px-5 py-3.5 font-medium text-gray-800">{r.users?.name}</td>
-                  <td className="px-5 py-3.5 text-gray-500 text-xs">{r.users?.phone}</td>
-                  <td className="px-5 py-3.5 text-xs text-gray-500">
+                <tr key={r.id} style={{ borderBottom: '1px solid rgba(23,24,45,0.04)' }}>
+                  <td className="px-5 py-3.5 font-mono text-[12px]" style={{ color: 'rgba(23,24,45,0.35)' }}>{r.id.slice(0, 8).toUpperCase()}</td>
+                  <td className="px-5 py-3.5 font-medium text-[14px]" style={{ color: '#17182D' }}>{r.users?.name}</td>
+                  <td className="px-5 py-3.5 text-[13px]" style={{ color: 'rgba(23,24,45,0.5)' }}>{r.users?.phone}</td>
+                  <td className="px-5 py-3.5 text-[12px]" style={{ color: 'rgba(23,24,45,0.5)' }}>
                     {r.reservation_items?.map((item) => `${item.products?.name} ×${item.quantity}`).join(', ')}
-                    {r.note && <span className="block text-gray-300 mt-0.5">{r.note}</span>}
+                    {r.note && <span className="block mt-0.5" style={{ color: 'rgba(23,24,45,0.3)' }}>{r.note}</span>}
                   </td>
-                  <td className="px-5 py-3.5 font-medium text-gray-700 text-xs">{total.toLocaleString()}원</td>
+                  <td className="px-5 py-3.5 font-medium text-[13px]" style={{ color: '#17182D' }}>{total.toLocaleString()}원</td>
                   <td className="px-5 py-3.5">
                     <select
                       value={r.status}
@@ -133,14 +134,14 @@ export default function ReservationManager({ initialReservations }: { initialRes
                       ))}
                     </select>
                   </td>
-                  <td className="px-5 py-3.5 text-gray-400 text-xs whitespace-nowrap">{new Date(r.created_at).toLocaleString('ko-KR')}</td>
+                  <td className="px-5 py-3.5 text-[12px] whitespace-nowrap" style={{ color: 'rgba(23,24,45,0.35)' }}>{new Date(r.created_at).toLocaleString('ko-KR')}</td>
                 </tr>
               )
             })}
           </tbody>
         </table>
         {!filtered.length && (
-          <p className="text-center py-12 text-gray-400 text-sm">예약 내역이 없습니다.</p>
+          <p className="text-center py-12 text-[14px]" style={{ color: 'rgba(23,24,45,0.35)' }}>예약 내역이 없습니다.</p>
         )}
       </div>
     </div>
