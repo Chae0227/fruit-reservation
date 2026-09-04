@@ -28,7 +28,7 @@ export default async function AdminDashboard() {
   return (
     <div className="p-8">
       <div className="mb-8">
-        <p className="text-[12px] font-semibold tracking-widest uppercase mb-1" style={{ color: '#F97316' }}>Overview</p>
+        <p className="text-[12px] font-semibold tracking-widest uppercase mb-1" style={{ color: '#F5A623' }}>Overview</p>
         <h1 className="text-[22px] font-bold" style={{ color: '#17182D', letterSpacing: '-0.02em' }}>대시보드</h1>
         <p className="text-[13px] mt-0.5" style={{ color: 'rgba(23,24,45,0.4)' }}>예약 현황을 확인하세요.</p>
       </div>

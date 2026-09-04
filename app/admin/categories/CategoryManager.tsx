@@ -70,7 +70,7 @@ export default function CategoryManager({ initialCategories }: { initialCategori
           type="submit"
           disabled={loading || !newName.trim()}
           className="flex items-center gap-1.5 px-4 py-2.5 text-[13px] font-semibold text-white rounded-xl disabled:opacity-50 transition-opacity hover:opacity-80"
-          style={{ background: '#F97316' }}
+          style={{ background: '#F5A623' }}
         >
           <Plus size={14} /> 추가
         </button>
@@ -118,7 +118,7 @@ export default function CategoryManager({ initialCategories }: { initialCategori
                   ) : (
                     <>
                       <button onClick={() => { setEditId(cat.id); setEditName(cat.name) }}>
-                        <Pencil size={14} style={{ color: '#F97316' }} />
+                        <Pencil size={14} style={{ color: '#F5A623' }} />
                       </button>
                       <button onClick={() => handleDelete(cat.id)}>
                         <Trash2 size={14} style={{ color: '#ef4444' }} />

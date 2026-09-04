@@ -111,7 +111,7 @@ export default function ProductManager({ initialProducts, categories }: { initia
               판매 중
             </label>
             <div className="flex gap-2 pt-1">
-              <button type="submit" disabled={loading} className="flex-1 py-2 text-white text-[13px] font-semibold rounded-xl disabled:opacity-50" style={{ background: '#F97316' }}>
+              <button type="submit" disabled={loading} className="flex-1 py-2 text-white text-[13px] font-semibold rounded-xl disabled:opacity-50" style={{ background: '#F5A623' }}>
                 {loading ? '저장 중...' : editId ? '수정' : '추가'}
               </button>
               {editId && (
@@ -159,7 +159,7 @@ export default function ProductManager({ initialProducts, categories }: { initia
                   </td>
                   <td className="px-5 py-3.5">
                     <div className="flex gap-3">
-                      <button onClick={() => startEdit(p)} className="text-[12px] font-medium" style={{ color: '#F97316' }}>수정</button>
+                      <button onClick={() => startEdit(p)} className="text-[12px] font-medium" style={{ color: '#F5A623' }}>수정</button>
                       <button onClick={() => handleDelete(p.id)} className="text-[12px] font-medium" style={{ color: '#ef4444' }}>삭제</button>
                     </div>
                   </td>

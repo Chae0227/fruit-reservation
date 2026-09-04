@@ -15,7 +15,7 @@ export default async function ProductsPage() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
       <MotionReveal>
-        <p className="text-[12px] font-semibold tracking-widest uppercase mb-2" style={{ color: '#F97316' }}>Products</p>
+        <p className="text-[12px] font-semibold tracking-widest uppercase mb-2" style={{ color: '#F5A623' }}>Products</p>
         <h1 className="text-[26px] font-bold mb-1" style={{ color: '#17182D', letterSpacing: '-0.02em' }}>예약 상품</h1>
         <p className="text-[14px] mb-8" style={{ color: 'rgba(23,24,45,0.45)' }}>원하는 상품을 선택하고 수량을 지정한 뒤 예약해주세요.</p>
       </MotionReveal>

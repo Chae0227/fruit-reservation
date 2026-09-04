@@ -22,9 +22,7 @@ export default function AdminSidebar({ name }: { name: string }) {
   return (
     <aside className="w-56 shrink-0 flex flex-col" style={{ background: '#FFFFFF', borderRight: '1px solid rgba(23,24,45,0.07)' }}>
       <div className="px-4 py-5 flex items-center gap-2.5" style={{ borderBottom: '1px solid rgba(23,24,45,0.06)' }}>
-        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: '#FFF0E5' }}>
-          <Store size={14} style={{ color: '#F97316' }} />
-        </div>
+        <img src="/logo.png" alt="오색청과" style={{ height: 30, width: 30, objectFit: 'contain' }} />
         <div>
           <p className="font-bold text-sm leading-none" style={{ color: '#17182D' }}>오색청과</p>
           <p className="text-xs mt-0.5" style={{ color: 'rgba(23,24,45,0.4)' }}>관리자</p>
@@ -40,7 +38,7 @@ export default function AdminSidebar({ name }: { name: string }) {
               href={href}
               className="flex items-center gap-2.5 px-3 py-2 text-[13px] rounded-lg mx-2 transition-all"
               style={active
-                ? { background: '#FFF0E5', color: '#F97316', fontWeight: 600 }
+                ? { background: '#FFF0E5', color: '#F5A623', fontWeight: 600 }
                 : { color: 'rgba(23,24,45,0.5)' }
               }
             >

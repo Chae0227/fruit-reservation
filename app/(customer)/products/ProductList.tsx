@@ -86,7 +86,7 @@ export default function ProductList({ products, categories, isLoggedIn }: { prod
                   onClick={() => setActiveCategory(cat.id)}
                   className="px-4 py-2 text-[13px] font-semibold rounded-full transition-all"
                   style={active
-                    ? { background: '#F97316', color: '#fff' }
+                    ? { background: '#F5A623', color: '#fff' }
                     : { background: '#FFFFFF', color: 'rgba(23,24,45,0.5)', border: '1px solid rgba(23,24,45,0.12)' }
                   }
                 >
@@ -130,7 +130,7 @@ export default function ProductList({ products, categories, isLoggedIn }: { prod
                     {p.description}
                   </p>
                 )}
-                <p className="font-bold text-[15px] mb-3" style={{ color: '#F97316' }}>{p.price.toLocaleString()}원</p>
+                <p className="font-bold text-[15px] mb-3" style={{ color: '#F5A623' }}>{p.price.toLocaleString()}원</p>
 
                 {inCart ? (
                   <div className="flex items-center gap-2">
@@ -158,7 +158,7 @@ export default function ProductList({ products, categories, isLoggedIn }: { prod
                     whileTap={{ scale: 0.95 }}
                     className="w-full py-2.5 text-[13px] font-semibold transition-colors"
                     style={{ border: '1.5px solid #17182D', borderRadius: 10, color: '#17182D', background: 'transparent' }}
-                    onHoverStart={(e) => { (e.target as HTMLElement).style.background = '#F97316'; (e.target as HTMLElement).style.color = '#fff'; (e.target as HTMLElement).style.borderColor = '#F97316' }}
+                    onHoverStart={(e) => { (e.target as HTMLElement).style.background = '#F5A623'; (e.target as HTMLElement).style.color = '#fff'; (e.target as HTMLElement).style.borderColor = '#F5A623' }}
                     onHoverEnd={(e) => { (e.target as HTMLElement).style.background = 'transparent'; (e.target as HTMLElement).style.color = '#17182D'; (e.target as HTMLElement).style.borderColor = '#17182D' }}
                   >
                     장바구니 담기
@@ -187,7 +187,7 @@ export default function ProductList({ products, categories, isLoggedIn }: { prod
                   exit={{ scale: 0 }}
                   transition={{ type: 'spring', stiffness: 480, damping: 20 }}
                   className="text-[11px] font-bold text-white flex items-center justify-center"
-                  style={{ background: '#F97316', borderRadius: '50%', width: 20, height: 20 }}
+                  style={{ background: '#F5A623', borderRadius: '50%', width: 20, height: 20 }}
                 >
                   {totalCount}
                 </motion.span>
@@ -256,7 +256,7 @@ export default function ProductList({ products, categories, isLoggedIn }: { prod
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: 'spring', stiffness: 380, damping: 22 }}
                   className="w-full py-3.5 font-bold text-[15px] text-white disabled:opacity-50"
-                  style={{ background: '#F97316', borderRadius: 12 }}
+                  style={{ background: '#F5A623', borderRadius: 12 }}
                 >
                   {loading ? '예약 중...' : isLoggedIn ? '예약 완료하기' : '로그인 후 예약하기'}
                 </motion.button>

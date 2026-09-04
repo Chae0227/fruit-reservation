@@ -26,7 +26,7 @@ export default async function MyPage() {
   return (
     <div className="max-w-2xl mx-auto px-10 py-14">
       <MotionReveal>
-        <p className="text-[12px] font-semibold tracking-widest uppercase mb-2" style={{ color: '#F97316' }}>My Reservations</p>
+        <p className="text-[12px] font-semibold tracking-widest uppercase mb-2" style={{ color: '#F5A623' }}>My Reservations</p>
         <h1 className="text-[26px] font-bold mb-1" style={{ color: '#17182D', letterSpacing: '-0.02em' }}>내 예약 내역</h1>
         <p className="text-[14px] mb-10" style={{ color: 'rgba(23,24,45,0.45)' }}>{session.name}님의 예약 목록입니다.</p>
       </MotionReveal>

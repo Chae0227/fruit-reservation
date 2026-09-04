@@ -39,14 +39,14 @@ export default function RegisterPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE }}
         >
-          <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: '#F97316' }}>오색청과</p>
+          <div className="flex items-center gap-2.5 mb-6"><img src="/logo.png" alt="오색청과" style={{ height: 36, width: 36, objectFit: 'contain' }} /><span className="text-sm font-bold" style={{ color: '#17182D' }}>오색청과</span></div>
           <h2 className="text-4xl font-bold leading-tight mb-6" style={{ color: '#17182D', letterSpacing: '-0.025em' }}>
             1분이면<br />시작할 수 있어요
           </h2>
           <ul className="space-y-3">
             {['이름과 연락처만 입력하면 완료', '로그인 후 바로 예약 가능', '픽업 시 현장 결제'].map((t) => (
               <li key={t} className="flex items-center gap-2.5 text-[15px]" style={{ color: 'rgba(23,24,45,0.55)' }}>
-                <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#F97316' }} />
+                <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#F5A623' }} />
                 {t}
               </li>
             ))}
@@ -105,7 +105,7 @@ export default function RegisterPage() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
               className="w-full py-3.5 font-bold text-[15px] text-white disabled:opacity-50 mt-1"
-              style={{ background: '#F97316', borderRadius: 12 }}
+              style={{ background: '#F5A623', borderRadius: 12 }}
             >
               {loading ? '가입 중...' : '가입하기'}
             </motion.button>

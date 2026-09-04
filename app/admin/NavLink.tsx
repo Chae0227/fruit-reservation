@@ -16,7 +16,7 @@ export default function NavLink({ href, Icon, label }: Props) {
       className="flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg mx-2 transition-all"
       style={
         active
-          ? { background: '#FFF0E5', color: '#F97316', fontWeight: 600 }
+          ? { background: '#FFF0E5', color: '#F5A623', fontWeight: 600 }
           : { color: 'rgba(23,24,45,0.5)' }
       }
     >

@@ -17,8 +17,9 @@ export default async function CustomerLayout({ children }: { children: React.Rea
         }}
       >
         <div className="max-w-6xl mx-auto px-10 h-14 flex items-center justify-between">
-          <Link href="/" style={{ color: '#17182D', fontWeight: 700, fontSize: 17, letterSpacing: '-0.01em' }}>
-            오색청과
+          <Link href="/" className="flex items-center gap-2">
+            <img src="/logo.png" alt="오색청과" style={{ height: 32, width: 32, objectFit: 'contain' }} />
+            <span style={{ color: '#17182D', fontWeight: 700, fontSize: 17, letterSpacing: '-0.01em' }}>오색청과</span>
           </Link>
           <nav className="flex items-center gap-6" style={{ fontSize: 14, fontWeight: 500, color: 'rgba(23,24,45,0.5)' }}>
             <Link href="/products" className="hover:text-[#17182D] transition-colors">상품</Link>
@@ -35,7 +36,7 @@ export default async function CustomerLayout({ children }: { children: React.Rea
                 <Link
                   href="/register"
                   className="font-semibold text-white transition-opacity hover:opacity-80"
-                  style={{ background: '#F97316', borderRadius: 10, fontSize: 13, padding: '6px 14px' }}
+                  style={{ background: '#F5A623', borderRadius: 10, fontSize: 13, padding: '6px 14px' }}
                 >
                   회원가입
                 </Link>

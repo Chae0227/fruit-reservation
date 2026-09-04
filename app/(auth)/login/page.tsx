@@ -39,7 +39,7 @@ export default function LoginPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE }}
         >
-          <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: '#F97316' }}>오색청과</p>
+          <div className="flex items-center gap-2.5 mb-6"><img src="/logo.png" alt="오색청과" style={{ height: 36, width: 36, objectFit: 'contain' }} /><span className="text-sm font-bold" style={{ color: '#17182D' }}>오색청과</span></div>
           <h2 className="text-4xl font-bold leading-tight mb-4" style={{ color: '#17182D', letterSpacing: '-0.025em' }}>
             신선한 과일을<br />미리 예약하세요
           </h2>
@@ -49,7 +49,7 @@ export default function LoginPage() {
           <div className="mt-10 space-y-3">
             {['매일 직접 선별한 신선한 과일', '실명 예약으로 노쇼 없는 신뢰', '픽업 시 현장 결제로 간편하게'].map((t) => (
               <div key={t} className="flex items-center gap-2.5 text-[14px]" style={{ color: 'rgba(23,24,45,0.55)' }}>
-                <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#F97316' }} />
+                <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#F5A623' }} />
                 {t}
               </div>
             ))}
@@ -112,7 +112,7 @@ export default function LoginPage() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 380, damping: 22 }}
               className="w-full py-3.5 font-bold text-[15px] text-white disabled:opacity-50 mt-1"
-              style={{ background: '#F97316', borderRadius: 12 }}
+              style={{ background: '#F5A623', borderRadius: 12 }}
             >
               {loading ? '로그인 중...' : '로그인'}
             </motion.button>
