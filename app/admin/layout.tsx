@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <Store size={14} style={{ color: '#F97316' }} />
           </div>
           <div>
-            <p className="font-bold text-sm leading-none" style={{ color: '#17182D' }}>과일가게</p>
+            <p className="font-bold text-sm leading-none" style={{ color: '#17182D' }}>오색청과</p>
             <p className="text-xs mt-0.5" style={{ color: 'rgba(23,24,45,0.4)' }}>관리자</p>
           </div>
         </div>

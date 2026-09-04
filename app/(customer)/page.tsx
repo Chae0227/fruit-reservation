@@ -17,45 +17,73 @@ export default async function LandingPage() {
     <div className="max-w-6xl mx-auto px-10">
 
       {/* ── Hero ── */}
-      <section className="pt-20 pb-16">
-        <MotionReveal>
-          <span
-            className="inline-block text-xs font-semibold tracking-widest uppercase mb-5"
-            style={{ color: '#F97316' }}
-          >
-            Fresh Fruit Reservation
-          </span>
-        </MotionReveal>
-        <MotionReveal delay={0.06}>
-          <h1
-            className="text-5xl md:text-6xl font-bold leading-[1.1] mb-6"
-            style={{ color: '#17182D', letterSpacing: '-0.025em', maxWidth: 640 }}
-          >
-            매일 아침 직접 고른<br />신선한 과일
-          </h1>
-        </MotionReveal>
-        <MotionReveal delay={0.12}>
-          <p className="text-[17px] leading-relaxed mb-9" style={{ color: 'rgba(23,24,45,0.55)', maxWidth: 400 }}>
-            제철 과일을 미리 예약하고 편하게 픽업하세요.<br />
-            실명 예약으로 노쇼 없이, 대기 없이.
-          </p>
-        </MotionReveal>
-        <MotionReveal delay={0.18}>
-          <div className="flex gap-3 flex-wrap">
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 font-semibold text-[15px] text-white px-6 py-3 transition-opacity hover:opacity-80"
-              style={{ background: '#F97316', borderRadius: 12 }}
-            >
-              예약하기 <ArrowRight size={15} />
-            </Link>
-            <Link
-              href="/register"
-              className="inline-flex items-center gap-2 font-semibold text-[15px] px-6 py-3 transition-colors"
-              style={{ background: '#FFFFFF', color: '#17182D', borderRadius: 12, border: '1px solid rgba(23,24,45,0.12)' }}
-            >
-              회원가입
-            </Link>
+      <section className="pt-16 pb-14 flex flex-col lg:flex-row items-center gap-12">
+        {/* Text */}
+        <div className="flex-1 min-w-0">
+          <MotionReveal>
+            <span className="inline-block text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: '#F97316' }}>
+              Fresh Fruit Reservation
+            </span>
+          </MotionReveal>
+          <MotionReveal delay={0.06}>
+            <h1 className="text-5xl md:text-6xl font-bold leading-[1.1] mb-6" style={{ color: '#17182D', letterSpacing: '-0.025em' }}>
+              매일 아침 직접 고른<br />신선한 과일
+            </h1>
+          </MotionReveal>
+          <MotionReveal delay={0.12}>
+            <p className="text-[17px] leading-relaxed mb-9" style={{ color: 'rgba(23,24,45,0.55)', maxWidth: 380 }}>
+              제철 과일을 미리 예약하고 편하게 픽업하세요.<br />
+              실명 예약으로 노쇼 없이, 대기 없이.
+            </p>
+          </MotionReveal>
+          <MotionReveal delay={0.18}>
+            <div className="flex gap-3 flex-wrap">
+              <Link
+                href="/products"
+                className="inline-flex items-center gap-2 font-semibold text-[15px] text-white px-6 py-3 transition-opacity hover:opacity-80"
+                style={{ background: '#F97316', borderRadius: 12 }}
+              >
+                예약하기 <ArrowRight size={15} />
+              </Link>
+              <Link
+                href="/register"
+                className="inline-flex items-center gap-2 font-semibold text-[15px] px-6 py-3 transition-colors"
+                style={{ background: '#FFFFFF', color: '#17182D', borderRadius: 12, border: '1px solid rgba(23,24,45,0.12)' }}
+              >
+                회원가입
+              </Link>
+            </div>
+          </MotionReveal>
+        </div>
+
+        {/* Fruit photo collage */}
+        <MotionReveal delay={0.1} className="hidden lg:block shrink-0 w-[460px]">
+          <div className="flex gap-3 h-[420px]">
+            {/* Left — big tall photo */}
+            <div className="flex-1 overflow-hidden" style={{ borderRadius: 24 }}>
+              <img
+                src="https://images.unsplash.com/photo-1550258987-190a2d41a8ba?auto=format&fit=crop&w=500&q=80"
+                alt="과일 모둠"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            {/* Right — 2 stacked */}
+            <div className="w-[48%] flex flex-col gap-3">
+              <div className="flex-1 overflow-hidden" style={{ borderRadius: 24 }}>
+                <img
+                  src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=400&q=80"
+                  alt="키위 단면"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="flex-1 overflow-hidden" style={{ borderRadius: 24 }}>
+                <img
+                  src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=400&q=80"
+                  alt="수박 단면"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            </div>
           </div>
         </MotionReveal>
       </section>

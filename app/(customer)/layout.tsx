@@ -18,7 +18,7 @@ export default async function CustomerLayout({ children }: { children: React.Rea
       >
         <div className="max-w-6xl mx-auto px-10 h-14 flex items-center justify-between">
           <Link href="/" style={{ color: '#17182D', fontWeight: 700, fontSize: 17, letterSpacing: '-0.01em' }}>
-            과일가게
+            오색청과
           </Link>
           <nav className="flex items-center gap-6" style={{ fontSize: 14, fontWeight: 500, color: 'rgba(23,24,45,0.5)' }}>
             <Link href="/products" className="hover:text-[#17182D] transition-colors">상품</Link>
@@ -50,7 +50,7 @@ export default async function CustomerLayout({ children }: { children: React.Rea
       <footer className="mt-24" style={{ background: '#FFFFFF', borderTop: '1px solid rgba(23,24,45,0.07)' }}>
         <div className="max-w-6xl mx-auto px-10 py-14 flex flex-col md:flex-row justify-between gap-10">
           <div>
-            <p className="font-bold text-[15px] mb-2" style={{ color: '#17182D' }}>과일가게</p>
+            <p className="font-bold text-[15px] mb-2" style={{ color: '#17182D' }}>오색청과</p>
             <p className="text-sm leading-relaxed" style={{ color: 'rgba(23,24,45,0.45)', maxWidth: 260 }}>
               제철 과일을 직접 선별해 가장 신선한 상태로 제공합니다.
               픽업 예약으로 대기 없이 편하게 받아가세요.
@@ -77,7 +77,7 @@ export default async function CustomerLayout({ children }: { children: React.Rea
           </div>
         </div>
         <div className="max-w-6xl mx-auto px-10 pb-8 text-xs" style={{ color: 'rgba(23,24,45,0.3)' }}>
-          © 2025 과일가게. All rights reserved.
+          © 2025 오색청과. All rights reserved.
         </div>
       </footer>
     </div>

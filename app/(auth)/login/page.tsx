@@ -39,7 +39,7 @@ export default function LoginPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE }}
         >
-          <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: '#F97316' }}>과일가게</p>
+          <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: '#F97316' }}>오색청과</p>
           <h2 className="text-4xl font-bold leading-tight mb-4" style={{ color: '#17182D', letterSpacing: '-0.025em' }}>
             신선한 과일을<br />미리 예약하세요
           </h2>
