@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { createServerClient } from '@/lib/supabase/server'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Truck, ShieldCheck, Leaf } from 'lucide-react'
 import type { Product } from '@/lib/types'
 
 export default async function LandingPage() {
@@ -10,91 +10,164 @@ export default async function LandingPage() {
     .select('*')
     .eq('is_available', true)
     .order('created_at', { ascending: false })
-    .limit(4)
+    .limit(6)
 
   return (
     <>
-      {/* Hero */}
-      <section style={{ background: 'linear-gradient(160deg, #faf8f4 0%, #f0e9dc 100%)' }}>
-        <div className="max-w-5xl mx-auto px-6 py-24 flex flex-col gap-6">
-          <p className="text-xs font-semibold text-amber-600 tracking-widest uppercase">Fresh Fruit Reservation</p>
-          <h1 className="text-5xl font-bold text-stone-900 leading-tight max-w-lg">
-            신선한 과일을<br />미리 예약하세요
-          </h1>
-          <p className="text-stone-500 text-base max-w-sm leading-relaxed">
-            제철 과일을 직접 골라 예약하고 편하게 픽업하세요.
-            실명 예약으로 신뢰를 더했습니다.
-          </p>
-          <div className="flex gap-3 mt-2">
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 bg-stone-900 text-white px-6 py-3 rounded-xl font-medium hover:bg-stone-700 transition-colors text-sm"
-            >
-              예약하기 <ArrowRight size={15} />
-            </Link>
-            <Link
-              href="/register"
-              className="inline-flex items-center gap-2 border border-stone-200 text-stone-600 px-6 py-3 rounded-xl font-medium hover:border-stone-300 hover:bg-white transition-colors text-sm"
-            >
-              회원가입
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section className="bg-white border-y border-stone-100">
-        <div className="max-w-5xl mx-auto px-6 py-16 grid grid-cols-3 gap-10">
-          {[
-            { step: '01', title: '회원가입', desc: '이름과 연락처로 간단하게 가입합니다.' },
-            { step: '02', title: '상품 선택', desc: '현재 판매 중인 제철 과일을 골라 수량을 지정합니다.' },
-            { step: '03', title: '픽업 & 결제', desc: '예약 후 가게에 방문해 현장에서 결제합니다.' },
-          ].map((s) => (
-            <div key={s.step} className="flex flex-col gap-3">
-              <span className="text-xs font-bold text-amber-500 tracking-widest">{s.step}</span>
-              <h3 className="font-bold text-stone-800 text-lg">{s.title}</h3>
-              <p className="text-sm text-stone-400 leading-relaxed">{s.desc}</p>
+      {/* ── Hero ── */}
+      <section className="relative overflow-hidden" style={{ background: 'linear-gradient(155deg, #1a1a1a 0%, #2d2d2d 100%)' }}>
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 70% 50%, #f97316 0%, transparent 60%)',
+          }}
+        />
+        <div className="relative max-w-6xl mx-auto px-5 py-28 md:py-36">
+          <div className="max-w-2xl">
+            <span className="inline-block text-xs font-semibold tracking-widest uppercase text-orange-400 mb-5">
+              Fresh Fruit Reservation
+            </span>
+            <h1 className="text-4xl md:text-6xl font-bold text-white leading-[1.15] mb-6">
+              매일 아침 직접 고른<br />
+              <span style={{ color: '#fba040' }}>신선한 과일</span>을<br />
+              예약하세요
+            </h1>
+            <p className="text-neutral-400 text-lg leading-relaxed mb-10 max-w-md">
+              제철 과일을 미리 예약하고 편하게 픽업하세요.
+              실명 예약으로 대기 없이 받아가실 수 있습니다.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/products"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-[15px] transition-all hover:gap-3"
+                style={{ background: '#f97316', color: '#fff' }}
+              >
+                지금 예약하기 <ArrowRight size={16} />
+              </Link>
+              <Link
+                href="/register"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-[15px] text-white border border-white/20 hover:border-white/50 transition-all"
+              >
+                무료 회원가입
+              </Link>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* Products preview */}
-      {products && products.length > 0 && (
-        <section className="max-w-5xl mx-auto px-6 py-16">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-xl font-bold text-stone-800">지금 예약 가능한 상품</h2>
-            <Link href="/products" className="text-sm text-stone-500 hover:text-stone-800 flex items-center gap-1 transition-colors">
-              전체보기 <ArrowRight size={13} />
-            </Link>
+      {/* ── Trust bar ── */}
+      <section className="border-b border-neutral-100">
+        <div className="max-w-6xl mx-auto px-5 py-6">
+          <div className="grid grid-cols-3 gap-4">
+            {[
+              { Icon: Leaf, label: '매일 직접 선별', desc: '신선도 보장' },
+              { Icon: ShieldCheck, label: '실명 예약', desc: '노쇼 없는 신뢰' },
+              { Icon: Truck, label: '당일 픽업', desc: '대기 없이 바로' },
+            ].map(({ Icon, label, desc }) => (
+              <div key={label} className="flex items-center gap-3 py-2">
+                <div className="w-9 h-9 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
+                  <Icon size={17} className="text-orange-500" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-neutral-800">{label}</p>
+                  <p className="text-xs text-neutral-400">{desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+        </div>
+      </section>
+
+      {/* ── Products ── */}
+      <section className="max-w-6xl mx-auto px-5 py-20">
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <p className="text-xs font-semibold text-orange-500 tracking-widest uppercase mb-2">Products</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">지금 예약 가능한 상품</h2>
+          </div>
+          <Link
+            href="/products"
+            className="hidden md:flex items-center gap-1.5 text-[14px] font-medium text-neutral-500 hover:text-neutral-900 transition-colors"
+          >
+            전체보기 <ArrowRight size={14} />
+          </Link>
+        </div>
+
+        {products && products.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
             {(products as Product[]).map((p) => (
               <Link
                 key={p.id}
                 href="/products"
-                className="group bg-white rounded-2xl border border-stone-100 overflow-hidden hover:border-stone-200 hover:shadow-md transition-all"
+                className="group rounded-2xl overflow-hidden border border-neutral-100 hover:border-neutral-200 hover:shadow-lg transition-all duration-300"
               >
                 <div
-                  className="h-40 flex items-center justify-center overflow-hidden"
-                  style={{ background: '#f5f0e8' }}
+                  className="h-52 overflow-hidden flex items-center justify-center"
+                  style={{ background: 'linear-gradient(135deg, #faf8f4, #f0e9dc)' }}
                 >
                   {p.image_url ? (
-                    <img src={p.image_url} alt={p.name} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img
+                      src={p.image_url}
+                      alt={p.name}
+                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   ) : (
-                    <div className="w-16 h-16 rounded-full bg-stone-200" />
+                    <div className="w-24 h-24 rounded-full bg-neutral-200/60" />
                   )}
                 </div>
-                <div className="p-4">
-                  <p className="font-semibold text-stone-800 text-sm">{p.name}</p>
-                  {p.description && <p className="text-xs text-stone-400 mt-0.5 line-clamp-1">{p.description}</p>}
-                  <p className="text-amber-600 font-bold text-sm mt-2">{p.price.toLocaleString()}원</p>
+                <div className="p-5 bg-white">
+                  <p className="font-semibold text-neutral-900 text-[15px]">{p.name}</p>
+                  {p.description && (
+                    <p className="text-xs text-neutral-400 mt-1 line-clamp-1">{p.description}</p>
+                  )}
+                  <div className="flex items-center justify-between mt-3">
+                    <p className="text-base font-bold" style={{ color: '#ea6c0a' }}>
+                      {p.price.toLocaleString()}원
+                    </p>
+                    <span className="text-xs font-semibold text-orange-500 bg-orange-50 px-2.5 py-1 rounded-full">
+                      예약가능
+                    </span>
+                  </div>
                 </div>
               </Link>
             ))}
           </div>
-        </section>
-      )}
+        ) : (
+          <div className="text-center py-20 text-neutral-400">
+            <p className="text-sm">현재 등록된 상품이 없습니다.</p>
+          </div>
+        )}
+
+        <div className="text-center mt-8 md:hidden">
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-2 text-[14px] font-medium text-neutral-600 border border-neutral-200 px-5 py-2.5 rounded-full hover:bg-neutral-50 transition-colors"
+          >
+            전체 상품 보기 <ArrowRight size={14} />
+          </Link>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="mx-5 mb-20 rounded-3xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #1c1c1c, #2e1a0e)' }}>
+        <div className="max-w-6xl mx-auto px-8 py-16 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              지금 바로 시작하세요
+            </h2>
+            <p className="text-neutral-400 text-[15px]">
+              회원가입하고 첫 예약까지 1분이면 충분합니다.
+            </p>
+          </div>
+          <Link
+            href="/register"
+            className="shrink-0 inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-[15px] text-neutral-900 transition-all hover:gap-3"
+            style={{ background: '#fba040' }}
+          >
+            무료로 시작하기 <ArrowRight size={16} />
+          </Link>
+        </div>
+      </section>
     </>
   )
 }

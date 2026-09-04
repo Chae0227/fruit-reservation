@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: '과일 예약',
-  description: '신선한 과일 픽업 예약 서비스',
+  title: { default: '과일가게', template: '%s | 과일가게' },
+  description: '신선한 제철 과일을 미리 예약하고 편하게 픽업하세요.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

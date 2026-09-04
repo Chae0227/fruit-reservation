@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Plus, Minus, ShoppingCart } from 'lucide-react'
+import { Plus, Minus, ShoppingBag, X } from 'lucide-react'
 import type { Product } from '@/lib/types'
 
 type CartItem = { product: Product; quantity: number }
@@ -28,6 +28,10 @@ export default function ProductList({ products, isLoggedIn }: { products: Produc
     )
   }
 
+  function removeFromCart(productId: string) {
+    setCart((prev) => prev.filter((c) => c.product.id !== productId))
+  }
+
   const totalPrice = cart.reduce((sum, c) => sum + c.product.price * c.quantity, 0)
   const totalCount = cart.reduce((sum, c) => sum + c.quantity, 0)
 
@@ -49,7 +53,8 @@ export default function ProductList({ products, isLoggedIn }: { products: Produc
 
   if (!products.length) {
     return (
-      <div className="text-center py-24 text-stone-400">
+      <div className="text-center py-32 text-neutral-400">
+        <ShoppingBag size={36} className="mx-auto mb-4 opacity-30" />
         <p className="text-sm">현재 예약 가능한 상품이 없습니다.</p>
       </div>
     )
@@ -62,36 +67,55 @@ export default function ProductList({ products, isLoggedIn }: { products: Produc
         {products.map((p) => {
           const inCart = cart.find((c) => c.product.id === p.id)
           return (
-            <div key={p.id} className="group bg-white rounded-2xl border border-stone-100 overflow-hidden hover:border-stone-200 hover:shadow-md transition-all">
-              <div className="h-44 overflow-hidden" style={{ background: '#f5f0e8' }}>
+            <div
+              key={p.id}
+              className="group rounded-2xl overflow-hidden border border-neutral-100 hover:border-neutral-200 hover:shadow-md transition-all duration-300 bg-white"
+            >
+              <div
+                className="h-48 overflow-hidden flex items-center justify-center relative"
+                style={{ background: 'linear-gradient(135deg, #faf8f4, #f0e9dc)' }}
+              >
                 {p.image_url ? (
-                  <img src={p.image_url} alt={p.name} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <img
+                    src={p.image_url}
+                    alt={p.name}
+                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                 ) : (
-                  <div className="h-full w-full flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full bg-stone-200" />
-                  </div>
+                  <div className="w-20 h-20 rounded-full bg-neutral-200/60" />
                 )}
               </div>
               <div className="p-4">
-                <h3 className="font-semibold text-stone-800">{p.name}</h3>
-                {p.description && <p className="text-xs text-stone-400 mt-1 line-clamp-2 leading-relaxed">{p.description}</p>}
-                <p className="text-amber-600 font-bold mt-2 text-sm">{p.price.toLocaleString()}원</p>
+                <h3 className="font-semibold text-neutral-900 text-[15px]">{p.name}</h3>
+                {p.description && (
+                  <p className="text-xs text-neutral-400 mt-1 line-clamp-2 leading-relaxed">{p.description}</p>
+                )}
+                <p className="font-bold text-[15px] mt-3" style={{ color: '#ea6c0a' }}>
+                  {p.price.toLocaleString()}원
+                </p>
                 {inCart ? (
-                  <div className="flex items-center gap-3 mt-3">
-                    <button onClick={() => updateQty(p.id, -1)} className="w-8 h-8 rounded-full border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors">
-                      <Minus size={13} className="text-stone-500" />
+                  <div className="flex items-center gap-2 mt-3">
+                    <button
+                      onClick={() => updateQty(p.id, -1)}
+                      className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center hover:bg-neutral-50 transition-colors"
+                    >
+                      <Minus size={13} className="text-neutral-600" />
                     </button>
-                    <span className="font-bold text-stone-800 w-5 text-center">{inCart.quantity}</span>
-                    <button onClick={() => updateQty(p.id, 1)} className="w-8 h-8 rounded-full bg-stone-900 flex items-center justify-center hover:bg-stone-700 transition-colors">
+                    <span className="font-bold text-neutral-900 w-6 text-center">{inCart.quantity}</span>
+                    <button
+                      onClick={() => updateQty(p.id, 1)}
+                      className="w-8 h-8 rounded-full flex items-center justify-center transition-colors"
+                      style={{ background: '#f97316' }}
+                    >
                       <Plus size={13} className="text-white" />
                     </button>
                   </div>
                 ) : (
                   <button
                     onClick={() => addToCart(p)}
-                    className="mt-3 w-full py-2 rounded-xl border border-stone-200 text-stone-700 text-sm font-medium hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-all"
+                    className="mt-3 w-full py-2.5 rounded-xl border-2 border-neutral-900 text-neutral-900 text-[13px] font-semibold hover:bg-neutral-900 hover:text-white transition-all"
                   >
-                    담기
+                    장바구니 담기
                   </button>
                 )}
               </div>
@@ -101,50 +125,79 @@ export default function ProductList({ products, isLoggedIn }: { products: Produc
       </div>
 
       {/* Cart */}
-      <div className="lg:w-72 shrink-0 w-full">
-        <div className="bg-white rounded-2xl border border-stone-100 p-5 sticky top-20">
-          <div className="flex items-center gap-2 mb-4">
-            <ShoppingCart size={15} className="text-stone-500" />
-            <h2 className="font-bold text-stone-800 text-sm">예약 내역</h2>
+      <div className="lg:w-80 w-full shrink-0">
+        <div className="bg-white rounded-2xl border border-neutral-100 shadow-sm sticky top-24 overflow-hidden">
+          <div className="px-5 py-4 border-b border-neutral-100 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <ShoppingBag size={16} className="text-neutral-700" />
+              <span className="font-bold text-neutral-900 text-[15px]">예약 장바구니</span>
+            </div>
             {totalCount > 0 && (
-              <span className="ml-auto bg-stone-900 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">{totalCount}</span>
+              <span
+                className="text-xs font-bold text-white rounded-full w-5 h-5 flex items-center justify-center"
+                style={{ background: '#f97316' }}
+              >
+                {totalCount}
+              </span>
             )}
           </div>
-          {cart.length === 0 ? (
-            <p className="text-xs text-stone-400 text-center py-8">담은 상품이 없습니다.</p>
-          ) : (
-            <>
-              <ul className="space-y-2.5 mb-4">
-                {cart.map((c) => (
-                  <li key={c.product.id} className="flex items-center justify-between text-sm">
-                    <span className="text-stone-600 text-xs">{c.product.name} <span className="text-stone-400">× {c.quantity}</span></span>
-                    <span className="font-semibold text-stone-800 text-xs">{(c.product.price * c.quantity).toLocaleString()}원</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="border-t border-stone-100 pt-3 mb-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-stone-500">합계</span>
-                  <span className="font-bold text-stone-900">{totalPrice.toLocaleString()}원</span>
-                </div>
-                <p className="text-xs text-stone-400 mt-1">현장 결제</p>
+
+          <div className="p-5">
+            {cart.length === 0 ? (
+              <div className="text-center py-10 text-neutral-400">
+                <ShoppingBag size={28} className="mx-auto mb-3 opacity-25" />
+                <p className="text-sm">담은 상품이 없습니다.</p>
               </div>
-              <textarea
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-                placeholder="요청사항 (선택)"
-                className="w-full text-xs border border-stone-200 rounded-xl p-3 resize-none mb-3 focus:outline-none focus:border-stone-400 leading-relaxed"
-                rows={2}
-              />
-              <button
-                onClick={handleReserve}
-                disabled={loading}
-                className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-colors disabled:opacity-50 text-sm"
-              >
-                {loading ? '예약 중...' : isLoggedIn ? '예약하기' : '로그인 후 예약'}
-              </button>
-            </>
-          )}
+            ) : (
+              <>
+                <ul className="space-y-3 mb-5">
+                  {cart.map((c) => (
+                    <li key={c.product.id} className="flex items-start gap-3">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[13px] font-semibold text-neutral-800 truncate">{c.product.name}</p>
+                        <p className="text-xs text-neutral-400 mt-0.5">
+                          {c.product.price.toLocaleString()}원 × {c.quantity}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span className="text-[13px] font-bold text-neutral-900">
+                          {(c.product.price * c.quantity).toLocaleString()}원
+                        </span>
+                        <button onClick={() => removeFromCart(c.product.id)} className="text-neutral-300 hover:text-neutral-500 ml-1">
+                          <X size={14} />
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="border-t border-neutral-100 pt-4 mb-4">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-sm text-neutral-500">상품 합계</span>
+                    <span className="font-bold text-neutral-900 text-[15px]">{totalPrice.toLocaleString()}원</span>
+                  </div>
+                  <p className="text-xs text-neutral-400">결제는 픽업 시 현장에서 진행됩니다</p>
+                </div>
+
+                <textarea
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  placeholder="요청사항을 입력하세요 (선택)"
+                  className="w-full text-[13px] border border-neutral-200 rounded-xl p-3 resize-none mb-4 focus:outline-none focus:border-neutral-400 leading-relaxed placeholder:text-neutral-300"
+                  rows={2}
+                />
+
+                <button
+                  onClick={handleReserve}
+                  disabled={loading}
+                  className="w-full py-3.5 rounded-xl font-bold text-[15px] text-white transition-all disabled:opacity-50 hover:opacity-90"
+                  style={{ background: 'linear-gradient(135deg, #f97316, #ea580c)' }}
+                >
+                  {loading ? '예약 중...' : isLoggedIn ? '예약 완료하기' : '로그인 후 예약하기'}
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
